@@ -13,12 +13,17 @@ const verifyAdmin = async (req, res, next) => {
     if (err) {
       return res.status(403).json({ message: 'Failed to authenticate token' });
     }
-    const user = await User.findOne({ email: decoded.email });
-    if (!user || user.role !== ROLES.ADMIN) {
+    const user = await User.findOne({
+      email: decoded.email,
+      deleted: { $ne: true },
+      role: ROLES.ADMIN,
+    });
+    if (!user) {
       return res.status(403).json({ message: 'Access denied: Admins only' });
     }
 
     req.userEmail = decoded.email;
+    req.userId = decoded.userId;
     req.user = user;
     next(); // Proceed to the next middleware or route handler
   });

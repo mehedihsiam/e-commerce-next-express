@@ -15,7 +15,10 @@ const loginUser = async (req, res, next) => {
     }
 
     // Find user by email
-    const user = await User.findOne({ email: email.toLowerCase() });
+    const user = await User.findOne({
+      email: email.toLowerCase(),
+      deleted: { $ne: true },
+    });
     if (!user) {
       return res.status(404).json({ message: 'User not found' });
     }

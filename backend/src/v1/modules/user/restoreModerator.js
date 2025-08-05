@@ -1,6 +1,6 @@
 import User from './User.model.js';
 
-const deleteModerator = async (req, res, next) => {
+const restoreModerator = async (req, res, next) => {
   try {
     // Extract email from request body
     const { email } = req.body;
@@ -12,7 +12,7 @@ const deleteModerator = async (req, res, next) => {
         role: 'moderator',
       },
       {
-        $set: { deleted: true, deletedBy: req.user._id },
+        $set: { deleted: false, restoredBy: req.user._id },
       },
       { new: true },
     );
@@ -21,11 +21,11 @@ const deleteModerator = async (req, res, next) => {
       return res.status(404).json({ message: 'Moderator not found' });
     }
 
-    res.status(200).json({ message: 'Moderator deleted successfully' });
+    res.status(200).json({ message: 'Moderator restored successfully' });
   } catch (error) {
-    console.error('Error deleting moderator:', error);
+    console.error('Error restoring moderator:', error);
     next(error); // Pass error to the error handling middleware
   }
 };
 
-export default deleteModerator;
+export default restoreModerator;

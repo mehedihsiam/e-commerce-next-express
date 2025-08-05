@@ -1,3 +1,5 @@
+import User from './User.model.js';
+
 const getMyProfile = async (req, res, next) => {
   try {
     // Extract user ID from request

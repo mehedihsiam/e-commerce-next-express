@@ -1,7 +1,8 @@
-import jwt from 'jsonwebtoken';
+import { ROLES } from '../constants/ROLES.js';
 import User from '../modules/user/User.model.js';
+import jwt from 'jsonwebtoken';
 
-const verifyToken = async (req, res, next) => {
+const verifyAdminOrModerator = async (req, res, next) => {
   const token = req.headers['authorization']?.split('Bearer ')[1];
 
   if (!token) {
@@ -12,17 +13,15 @@ const verifyToken = async (req, res, next) => {
     if (err) {
       return res.status(403).json({ message: 'Failed to authenticate token' });
     }
-
     const user = await User.findOne({
-      _id: decoded.userId,
       email: decoded.email,
       deleted: { $ne: true },
+      role: { $in: [ROLES.ADMIN, ROLES.MODERATOR] },
     });
-
     if (!user) {
       return res
-        .status(401)
-        .json({ message: 'Unauthorized: User not found or inactive' });
+        .status(403)
+        .json({ message: 'Access denied: Admins and Moderators only' });
     }
 
     req.userEmail = decoded.email;
@@ -32,4 +31,4 @@ const verifyToken = async (req, res, next) => {
   });
 };
 
-export default verifyToken;
+export default verifyAdminOrModerator;

@@ -41,6 +41,7 @@ const createModerator = async (req, res, next) => {
         email,
         password: hashedPassword,
         role: 'moderator',
+        createdBy: req.user._id,
       },
       { new: true, upsert: true },
     );
