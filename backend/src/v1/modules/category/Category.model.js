@@ -19,6 +19,18 @@ const categorySchema = new mongoose.Schema(
       ref: 'Category',
       default: null,
     },
+    isActive: {
+      type: Boolean,
+      default: true,
+    },
+    isDeleted: {
+      type: Boolean,
+      default: false,
+    },
+    deletedAt: {
+      type: Date,
+      default: null,
+    },
   },
   { timestamps: true },
 );
@@ -39,6 +51,17 @@ categorySchema.pre('save', function (next) {
 categorySchema.index({ name: 1 });
 categorySchema.index({ slug: 1 });
 categorySchema.index({ parent: 1 });
+categorySchema.index({ isActive: 1 });
+categorySchema.index({ isDeleted: 1 });
+
+// Query middleware to exclude deleted categories by default
+categorySchema.pre(/^find/, function (next) {
+  // Only apply this filter if isDeleted is not explicitly queried
+  if (!this.getQuery().hasOwnProperty('isDeleted')) {
+    this.find({ isDeleted: { $ne: true } });
+  }
+  next();
+});
 
 const Category = mongoose.model('Category', categorySchema);
 export default Category;
