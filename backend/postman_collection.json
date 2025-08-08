@@ -1,0 +1,908 @@
+{
+  "info": {
+    "_postman_id": "e4f3c9d2-1234-5678-abcd-ef1234567890",
+    "name": "E-Commerce API (Full Modular)",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": "Full API collection for the E-Commerce platform. Each module is a folder, and every endpoint is included with a dummy payload where applicable."
+  },
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "http://localhost:5000/api/v1",
+      "type": "string"
+    },
+    { "key": "authToken", "value": "", "type": "string" }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [{ "key": "token", "value": "{{authToken}}", "type": "string" }]
+  },
+  "item": [
+    {
+      "name": "User",
+      "item": [
+        {
+          "name": "Register User",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"John Doe\",\n  \"email\": \"john@example.com\",\n  \"password\": \"securePassword123\",\n  \"phone\": \"+1234567890\"\n}",
+              "options": { "raw": { "language": "json" } }
+            },
+            "url": {
+              "raw": "{{base_url}}/user/register-self",
+              "host": ["{{base_url}}"],
+              "path": ["user", "register-self"]
+            }
+          }
+        },
+        {
+          "name": "Login User",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"john@example.com\",\n  \"password\": \"securePassword123\"\n}",
+              "options": { "raw": { "language": "json" } }
+            },
+            "url": {
+              "raw": "{{base_url}}/user/login",
+              "host": ["{{base_url}}"],
+              "path": ["user", "login"]
+            }
+          }
+        },
+        {
+          "name": "Create Moderator",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Moderator\",\n  \"email\": \"mod@example.com\",\n  \"password\": \"modPass123\",\n  \"phone\": \"+1987654321\"\n}",
+              "options": { "raw": { "language": "json" } }
+            },
+            "url": {
+              "raw": "{{base_url}}/user/create-moderator",
+              "host": ["{{base_url}}"],
+              "path": ["user", "create-moderator"]
+            }
+          }
+        },
+        {
+          "name": "Get My Profile",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/user/me",
+              "host": ["{{base_url}}"],
+              "path": ["user", "me"]
+            }
+          }
+        },
+        {
+          "name": "Change Password",
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"currentPassword\": \"oldPassword123\",\n  \"newPassword\": \"newPassword123\"\n}",
+              "options": { "raw": { "language": "json" } }
+            },
+            "url": {
+              "raw": "{{base_url}}/user/change-password",
+              "host": ["{{base_url}}"],
+              "path": ["user", "change-password"]
+            }
+          }
+        },
+        {
+          "name": "Forget Password",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"john@example.com\"\n}",
+              "options": { "raw": { "language": "json" } }
+            },
+            "url": {
+              "raw": "{{base_url}}/user/forget-password",
+              "host": ["{{base_url}}"],
+              "path": ["user", "forget-password"]
+            }
+          }
+        },
+        {
+          "name": "Verify OTP",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"john@example.com\",\n  \"otp\": \"123456\"\n}",
+              "options": { "raw": { "language": "json" } }
+            },
+            "url": {
+              "raw": "{{base_url}}/user/verify-otp",
+              "host": ["{{base_url}}"],
+              "path": ["user", "verify-otp"]
+            }
+          }
+        },
+        {
+          "name": "Get All Customers",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/user/all-customers",
+              "host": ["{{base_url}}"],
+              "path": ["user", "all-customers"]
+            }
+          }
+        },
+        {
+          "name": "Get All Moderators",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/user/all-moderators",
+              "host": ["{{base_url}}"],
+              "path": ["user", "all-moderators"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Product",
+      "item": [
+        {
+          "name": "Get All Products (Public)",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/products",
+              "host": ["{{base_url}}"],
+              "path": ["products"]
+            }
+          }
+        },
+        {
+          "name": "Get Featured Products",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/products/featured",
+              "host": ["{{base_url}}"],
+              "path": ["products", "featured"]
+            }
+          }
+        },
+        {
+          "name": "Get Product Details (Public)",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/products/:slug",
+              "host": ["{{base_url}}"],
+              "path": ["products", ":slug"]
+            }
+          }
+        },
+        {
+          "name": "Get Related Products",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/products/:id/related",
+              "host": ["{{base_url}}"],
+              "path": ["products", ":id", "related"]
+            }
+          }
+        },
+        {
+          "name": "Create Product",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"iPhone 14 Pro\",\n  \"description\": \"Latest iPhone model\",\n  \"price\": 999.99,\n  \"category\": \"category_id_here\",\n  \"stock\": 100,\n  \"images\": [\n    {\n      \"url\": \"image_url_1\",\n      \"alt\": \"Front view\"\n    }\n  ],\n  \"specs\": {\n    \"color\": \"Space Black\",\n    \"storage\": \"256GB\"\n  },\n  \"isFeatured\": true\n}",
+              "options": { "raw": { "language": "json" } }
+            },
+            "url": {
+              "raw": "{{base_url}}/products",
+              "host": ["{{base_url}}"],
+              "path": ["products"]
+            }
+          }
+        },
+        {
+          "name": "Update Product",
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"iPhone 14 Pro Max\",\n  \"description\": \"Updated description\",\n  \"price\": 1099.99\n}",
+              "options": { "raw": { "language": "json" } }
+            },
+            "url": {
+              "raw": "{{base_url}}/products/:id",
+              "host": ["{{base_url}}"],
+              "path": ["products", ":id"]
+            }
+          }
+        },
+        {
+          "name": "Delete Product",
+          "request": {
+            "method": "DELETE",
+            "url": {
+              "raw": "{{base_url}}/products/:id",
+              "host": ["{{base_url}}"],
+              "path": ["products", ":id"]
+            }
+          }
+        },
+        {
+          "name": "Toggle Product Status",
+          "request": {
+            "method": "PATCH",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"isActive\": false\n}",
+              "options": { "raw": { "language": "json" } }
+            },
+            "url": {
+              "raw": "{{base_url}}/products/:id/toggle-status",
+              "host": ["{{base_url}}"],
+              "path": ["products", ":id", "toggle-status"]
+            }
+          }
+        },
+        {
+          "name": "Update Product Stock",
+          "request": {
+            "method": "PATCH",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"stock\": 50\n}",
+              "options": { "raw": { "language": "json" } }
+            },
+            "url": {
+              "raw": "{{base_url}}/products/:id/stock",
+              "host": ["{{base_url}}"],
+              "path": ["products", ":id", "stock"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Category",
+      "item": [
+        {
+          "name": "Get All Categories",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/categories",
+              "host": ["{{base_url}}"],
+              "path": ["categories"]
+            }
+          }
+        },
+        {
+          "name": "Get Deleted Categories",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/categories/deleted",
+              "host": ["{{base_url}}"],
+              "path": ["categories", "deleted"]
+            }
+          }
+        },
+        {
+          "name": "Create Category",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Electronics\",\n  \"description\": \"Electronic products and gadgets\"\n}",
+              "options": { "raw": { "language": "json" } }
+            },
+            "url": {
+              "raw": "{{base_url}}/categories",
+              "host": ["{{base_url}}"],
+              "path": ["categories"]
+            }
+          }
+        },
+        {
+          "name": "Update Category",
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Updated Electronics\",\n  \"description\": \"Updated description\"\n}",
+              "options": { "raw": { "language": "json" } }
+            },
+            "url": {
+              "raw": "{{base_url}}/categories/:id",
+              "host": ["{{base_url}}"],
+              "path": ["categories", ":id"]
+            }
+          }
+        },
+        {
+          "name": "Delete Category",
+          "request": {
+            "method": "DELETE",
+            "url": {
+              "raw": "{{base_url}}/categories/:id",
+              "host": ["{{base_url}}"],
+              "path": ["categories", ":id"]
+            }
+          }
+        },
+        {
+          "name": "Restore Category",
+          "request": {
+            "method": "PATCH",
+            "url": {
+              "raw": "{{base_url}}/categories/:id/restore",
+              "host": ["{{base_url}}"],
+              "path": ["categories", ":id", "restore"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Cart",
+      "item": [
+        {
+          "name": "Get Cart",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/cart",
+              "host": ["{{base_url}}"],
+              "path": ["cart"]
+            }
+          }
+        },
+        {
+          "name": "Get Cart Summary",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/cart/summary",
+              "host": ["{{base_url}}"],
+              "path": ["cart", "summary"]
+            }
+          }
+        },
+        {
+          "name": "Validate Cart",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/cart/validate",
+              "host": ["{{base_url}}"],
+              "path": ["cart", "validate"]
+            }
+          }
+        },
+        {
+          "name": "Add to Cart",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"productId\": \"product_id_here\",\n  \"quantity\": 2\n}",
+              "options": { "raw": { "language": "json" } }
+            },
+            "url": {
+              "raw": "{{base_url}}/cart/add",
+              "host": ["{{base_url}}"],
+              "path": ["cart", "add"]
+            }
+          }
+        },
+        {
+          "name": "Update Cart Item",
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"quantity\": 3\n}",
+              "options": { "raw": { "language": "json" } }
+            },
+            "url": {
+              "raw": "{{base_url}}/cart/items/:itemId",
+              "host": ["{{base_url}}"],
+              "path": ["cart", "items", ":itemId"]
+            }
+          }
+        },
+        {
+          "name": "Remove From Cart",
+          "request": {
+            "method": "DELETE",
+            "url": {
+              "raw": "{{base_url}}/cart/items/:itemId",
+              "host": ["{{base_url}}"],
+              "path": ["cart", "items", ":itemId"]
+            }
+          }
+        },
+        {
+          "name": "Clear Cart",
+          "request": {
+            "method": "DELETE",
+            "url": {
+              "raw": "{{base_url}}/cart/clear",
+              "host": ["{{base_url}}"],
+              "path": ["cart", "clear"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Order",
+      "item": [
+        {
+          "name": "Track Order (Public)",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/orders/track/:orderNumber",
+              "host": ["{{base_url}}"],
+              "path": ["orders", "track", ":orderNumber"]
+            }
+          }
+        },
+        {
+          "name": "Place Order",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"shippingAddress\": {\n    \"street\": \"123 Main St\",\n    \"city\": \"New York\",\n    \"state\": \"NY\",\n    \"country\": \"USA\",\n    \"zipCode\": \"10001\",\n    \"phone\": \"+1234567890\"\n  },\n  \"paymentMethod\": \"stripe\",\n  \"couponCode\": \"SUMMER20\"\n}",
+              "options": { "raw": { "language": "json" } }
+            },
+            "url": {
+              "raw": "{{base_url}}/orders",
+              "host": ["{{base_url}}"],
+              "path": ["orders"]
+            }
+          }
+        },
+        {
+          "name": "Get My Orders",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/orders/my-orders",
+              "host": ["{{base_url}}"],
+              "path": ["orders", "my-orders"]
+            }
+          }
+        },
+        {
+          "name": "Get Order Details",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/orders/:orderNumber",
+              "host": ["{{base_url}}"],
+              "path": ["orders", ":orderNumber"]
+            }
+          }
+        },
+        {
+          "name": "Cancel Order",
+          "request": {
+            "method": "PATCH",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"reason\": \"Changed my mind\"\n}",
+              "options": { "raw": { "language": "json" } }
+            },
+            "url": {
+              "raw": "{{base_url}}/orders/:orderNumber/cancel",
+              "host": ["{{base_url}}"],
+              "path": ["orders", ":orderNumber", "cancel"]
+            }
+          }
+        },
+        {
+          "name": "Get All Orders (Admin)",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/orders",
+              "host": ["{{base_url}}"],
+              "path": ["orders"]
+            }
+          }
+        },
+        {
+          "name": "Update Order Status (Admin)",
+          "request": {
+            "method": "PUT",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"status\": \"shipped\"\n}",
+              "options": { "raw": { "language": "json" } }
+            },
+            "url": {
+              "raw": "{{base_url}}/orders/:orderNumber/status",
+              "host": ["{{base_url}}"],
+              "path": ["orders", ":orderNumber", "status"]
+            }
+          }
+        },
+        {
+          "name": "Order Analytics (Admin)",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/orders/analytics/summary",
+              "host": ["{{base_url}}"],
+              "path": ["orders", "analytics", "summary"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Coupon",
+      "item": [
+        {
+          "name": "Validate Coupon (Public)",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"code\": \"SUMMER20\",\n  \"cartTotal\": 199.99\n}",
+              "options": { "raw": { "language": "json" } }
+            },
+            "url": {
+              "raw": "{{base_url}}/coupons/validate",
+              "host": ["{{base_url}}"],
+              "path": ["coupons", "validate"]
+            }
+          }
+        },
+        {
+          "name": "Get All Coupons (Admin)",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/coupons",
+              "host": ["{{base_url}}"],
+              "path": ["coupons"]
+            }
+          }
+        },
+        {
+          "name": "Get Coupon By ID (Admin)",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/coupons/:id",
+              "host": ["{{base_url}}"],
+              "path": ["coupons", ":id"]
+            }
+          }
+        },
+        {
+          "name": "Create Coupon (Admin)",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"code\": \"SUMMER20\",\n  \"type\": \"percentage\",\n  \"value\": 20,\n  \"minPurchase\": 100,\n  \"maxDiscount\": 50,\n  \"startDate\": \"2025-06-01T00:00:00Z\",\n  \"endDate\": \"2025-08-31T23:59:59Z\",\n  \"usageLimit\": 1000,\n  \"perUserLimit\": 1\n}",
+              "options": { "raw": { "language": "json" } }
+            },
+            "url": {
+              "raw": "{{base_url}}/coupons",
+              "host": ["{{base_url}}"],
+              "path": ["coupons"]
+            }
+          }
+        },
+        {
+          "name": "Update Coupon (Admin)",
+          "request": {
+            "method": "PATCH",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"value\": 25\n}",
+              "options": { "raw": { "language": "json" } }
+            },
+            "url": {
+              "raw": "{{base_url}}/coupons/:id",
+              "host": ["{{base_url}}"],
+              "path": ["coupons", ":id"]
+            }
+          }
+        },
+        {
+          "name": "Delete Coupon (Admin)",
+          "request": {
+            "method": "DELETE",
+            "url": {
+              "raw": "{{base_url}}/coupons/:id",
+              "host": ["{{base_url}}"],
+              "path": ["coupons", ":id"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Review",
+      "item": [
+        {
+          "name": "Get Product Reviews (Public)",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/reviews/product/:productId",
+              "host": ["{{base_url}}"],
+              "path": ["reviews", "product", ":productId"]
+            }
+          }
+        },
+        {
+          "name": "Create Review",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"productId\": \"product_id_here\",\n  \"rating\": 5,\n  \"title\": \"Great product!\",\n  \"comment\": \"Really satisfied with this purchase\"\n}",
+              "options": { "raw": { "language": "json" } }
+            },
+            "url": {
+              "raw": "{{base_url}}/reviews",
+              "host": ["{{base_url}}"],
+              "path": ["reviews"]
+            }
+          }
+        },
+        {
+          "name": "Get My Reviews",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/reviews/my-reviews",
+              "host": ["{{base_url}}"],
+              "path": ["reviews", "my-reviews"]
+            }
+          }
+        },
+        {
+          "name": "Check Review Eligibility",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/reviews/eligibility/:productId",
+              "host": ["{{base_url}}"],
+              "path": ["reviews", "eligibility", ":productId"]
+            }
+          }
+        },
+        {
+          "name": "Get All Reviews (Admin)",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/reviews",
+              "host": ["{{base_url}}"],
+              "path": ["reviews"]
+            }
+          }
+        },
+        {
+          "name": "Moderate Review (Admin)",
+          "request": {
+            "method": "PATCH",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"status\": \"approved\"\n}",
+              "options": { "raw": { "language": "json" } }
+            },
+            "url": {
+              "raw": "{{base_url}}/reviews/:id/moderate",
+              "host": ["{{base_url}}"],
+              "path": ["reviews", ":id", "moderate"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Settings",
+      "item": [
+        {
+          "name": "Get Public Settings",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/settings/public",
+              "host": ["{{base_url}}"],
+              "path": ["settings", "public"]
+            }
+          }
+        },
+        {
+          "name": "Get All Settings (Admin)",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/settings",
+              "host": ["{{base_url}}"],
+              "path": ["settings"]
+            }
+          }
+        },
+        {
+          "name": "Update Store Settings (Admin)",
+          "request": {
+            "method": "PATCH",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"My E-commerce Store\",\n  \"tagline\": \"Quality products for everyone\",\n  \"logo\": {\n    \"url\": \"https://example.com/logo.png\",\n    \"alt\": \"Store Logo\"\n  },\n  \"timezone\": \"UTC\",\n  \"defaultLanguage\": \"en\"\n}",
+              "options": { "raw": { "language": "json" } }
+            },
+            "url": {
+              "raw": "{{base_url}}/settings/store",
+              "host": ["{{base_url}}"],
+              "path": ["settings", "store"]
+            }
+          }
+        },
+        {
+          "name": "Update Contact Settings (Admin)",
+          "request": {
+            "method": "PATCH",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"contact@store.com\",\n  \"phone\": \"+1-555-9999\",\n  \"address\": {\n    \"street\": \"456 New Street\",\n    \"city\": \"Los Angeles\",\n    \"state\": \"CA\",\n    \"country\": \"USA\",\n    \"zipCode\": \"90210\"\n  }\n}",
+              "options": { "raw": { "language": "json" } }
+            },
+            "url": {
+              "raw": "{{base_url}}/settings/contact",
+              "host": ["{{base_url}}"],
+              "path": ["settings", "contact"]
+            }
+          }
+        },
+        {
+          "name": "Update Financial Settings (Admin)",
+          "request": {
+            "method": "PATCH",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"currency\": {\n    \"code\": \"USD\",\n    \"symbol\": \"$\",\n    \"position\": \"before\",\n    \"decimalPlaces\": 2\n  },\n  \"taxSettings\": {\n    \"enableTax\": true,\n    \"taxRate\": 8.5,\n    \"taxInclusive\": false,\n    \"taxLabel\": \"Sales Tax\"\n  }\n}",
+              "options": { "raw": { "language": "json" } }
+            },
+            "url": {
+              "raw": "{{base_url}}/settings/financial",
+              "host": ["{{base_url}}"],
+              "path": ["settings", "financial"]
+            }
+          }
+        },
+        {
+          "name": "Update Shipping Settings (Admin)",
+          "request": {
+            "method": "PATCH",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"enableShipping\": true,\n  \"freeShippingThreshold\": 50,\n  \"shippingMethods\": [\n    {\n      \"name\": \"Standard Shipping\",\n      \"price\": 9.99\n    }\n  ]\n}",
+              "options": { "raw": { "language": "json" } }
+            },
+            "url": {
+              "raw": "{{base_url}}/settings/shipping",
+              "host": ["{{base_url}}"],
+              "path": ["settings", "shipping"]
+            }
+          }
+        },
+        {
+          "name": "Update SEO Settings (Admin)",
+          "request": {
+            "method": "PATCH",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"metaTitle\": \"Best E-commerce Store\",\n  \"metaDescription\": \"Shop quality products at affordable prices.\"\n}",
+              "options": { "raw": { "language": "json" } }
+            },
+            "url": {
+              "raw": "{{base_url}}/settings/seo",
+              "host": ["{{base_url}}"],
+              "path": ["settings", "seo"]
+            }
+          }
+        },
+        {
+          "name": "Update Security Settings (Admin)",
+          "request": {
+            "method": "PATCH",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"enableSSL\": true,\n  \"sessionTimeout\": 120\n}",
+              "options": { "raw": { "language": "json" } }
+            },
+            "url": {
+              "raw": "{{base_url}}/settings/security",
+              "host": ["{{base_url}}"],
+              "path": ["settings", "security"]
+            }
+          }
+        },
+        {
+          "name": "Update Maintenance Settings (Admin)",
+          "request": {
+            "method": "PATCH",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"enabled\": true,\n  \"message\": \"We're performing scheduled maintenance.\"\n}",
+              "options": { "raw": { "language": "json" } }
+            },
+            "url": {
+              "raw": "{{base_url}}/settings/maintenance",
+              "host": ["{{base_url}}"],
+              "path": ["settings", "maintenance"]
+            }
+          }
+        },
+        {
+          "name": "Update User Experience Settings (Admin)",
+          "request": {
+            "method": "PATCH",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"enableGuestCheckout\": true,\n  \"enableWishlist\": true\n}",
+              "options": { "raw": { "language": "json" } }
+            },
+            "url": {
+              "raw": "{{base_url}}/settings/user-experience",
+              "host": ["{{base_url}}"],
+              "path": ["settings", "user-experience"]
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

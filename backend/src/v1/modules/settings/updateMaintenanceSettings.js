@@ -11,7 +11,7 @@ const updateMaintenanceSettingsSchema = z.object({
     .min(10, 'Maintenance message must be at least 10 characters')
     .max(500, 'Maintenance message cannot exceed 500 characters')
     .optional(),
-  allowedIPs: z.array(z.string().ip('Invalid IP address')).optional(),
+  allowedIPs: z.array(z.string()).optional(),
   estimatedEndTime: z
     .string()
     .datetime()
