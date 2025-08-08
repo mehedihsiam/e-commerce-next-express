@@ -6,6 +6,7 @@ import cartRouter from './modules/cart/cart.router.js';
 import orderRouter from './modules/order/order.router.js';
 import couponRouter from './modules/cupon/coupon.router.js';
 import reviewRouter from './modules/review/review.router.js';
+import settingsRouter from './modules/settings/settings.router.js';
 
 const routerV1 = express.Router();
 
@@ -22,5 +23,7 @@ routerV1.use('/orders', orderRouter);
 routerV1.use('/coupons', couponRouter);
 
 routerV1.use('/reviews', reviewRouter);
+
+routerV1.use('/settings', settingsRouter);
 
 export default routerV1;
