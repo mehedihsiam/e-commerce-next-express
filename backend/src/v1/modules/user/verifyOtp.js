@@ -23,6 +23,11 @@ const verifyOtp = async (req, res, next) => {
       return res.status(400).json({ message: 'Invalid OTP' });
     }
 
+    // reset the otp into ""
+    user.otp = '';
+    user.otpExpires = null;
+    await user.save();
+
     const token = await generateToken(user.email, user._id);
 
     // If OTP is valid, proceed with the next steps (e.g., activating user account)

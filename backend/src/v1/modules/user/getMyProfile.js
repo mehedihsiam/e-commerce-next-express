@@ -6,7 +6,10 @@ const getMyProfile = async (req, res, next) => {
     const email = req.userEmail;
 
     // Fetch user profile from database
-    const userProfile = await User.findOne({ email }, '-password -__v');
+    const userProfile = await User.findOne(
+      { email },
+      '-password -__v -otp -otpExpires',
+    );
     if (!userProfile) {
       return res.status(404).json({ message: 'User profile not found' });
     }

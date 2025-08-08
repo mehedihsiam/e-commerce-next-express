@@ -2,7 +2,6 @@ import bcrypt from 'bcryptjs';
 import { z } from 'zod';
 import User from './User.model.js';
 import formatZodError from '../../utils/formatZodError.js';
-import jwt from 'jsonwebtoken';
 import welcomingModeratorEmail from '../../emails/welcomingModeratorEmail.js';
 import sendEmail from '../../utils/sendEmail.js';
 
@@ -29,6 +28,12 @@ const createModerator = async (req, res, next) => {
     // Validate request body
     const validatedData = registerSchema.parse(req.body);
     const { name, email, password } = validatedData;
+
+    if (email === req.user.email) {
+      return res.status(400).json({
+        message: 'You cannot create a moderator with your own email',
+      });
+    }
 
     // Hash the password
     const hashedPassword = await bcrypt.hash(password, 10);
