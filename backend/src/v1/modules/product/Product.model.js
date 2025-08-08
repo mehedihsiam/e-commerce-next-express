@@ -211,5 +211,30 @@ productSchema.index({ price: 1 });
 productSchema.index({ 'variants.color': 1 });
 productSchema.index({ 'variants.size': 1 });
 
+// Virtual populate for reviews
+productSchema.virtual('reviews', {
+  ref: 'Review',
+  localField: '_id',
+  foreignField: 'product',
+  match: { status: 'approved' },
+});
+
+// Virtual for review statistics
+productSchema.virtual('reviewStats').get(function () {
+  // This will be calculated separately using aggregation
+  // as virtuals can't perform async operations
+  return {
+    totalReviews: 0,
+    averageRating: 0,
+    ratingDistribution: { 1: 0, 2: 0, 3: 0, 4: 0, 5: 0 },
+  };
+});
+
+// Instance method to get review statistics
+productSchema.methods.getReviewStats = async function () {
+  const Review = mongoose.model('Review');
+  return await Review.getProductReviewStats(this._id);
+};
+
 const Product = mongoose.model('Product', productSchema);
 export default Product;
