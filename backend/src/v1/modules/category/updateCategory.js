@@ -1,7 +1,7 @@
 import { z } from 'zod';
 import Category from './Category.model.js';
 import formatZodError from '../../utils/formatZodError.js';
-import uploadImage from '../../utils/uploadImage.js';
+import { uploadImage } from '../../utils/uploadImage.js';
 
 // Validation schema for updating category (all fields optional)
 const updateCategorySchema = z.object({
