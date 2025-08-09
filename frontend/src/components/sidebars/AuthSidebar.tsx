@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import Sidebar from "../ui/Sidebar";
 import Button from "../ui/Button";
 import Input from "../ui/Input";
+import LoginForm from "./LoginForm";
 
 interface AuthSidebarProps {
   isOpen: boolean;
@@ -50,49 +51,26 @@ const AuthSidebar: React.FC<AuthSidebarProps> = ({ isOpen, onClose }) => {
       title={mode === "login" ? "Sign In" : "Create Account"}
     >
       <div className="p-6">
-        <form onSubmit={handleSubmit} className="space-y-4">
-          {mode === "signup" && (
-            <>
-              <div className="grid grid-cols-2 gap-4">
-                <Input
-                  type="text"
-                  name="firstName"
-                  placeholder="First Name"
-                  value={formData.firstName}
-                  onChange={handleInputChange}
-                  required
-                />
-                <Input
-                  type="text"
-                  name="lastName"
-                  placeholder="Last Name"
-                  value={formData.lastName}
-                  onChange={handleInputChange}
-                  required
-                />
-              </div>
-            </>
-          )}
-
-          <Input
-            type="email"
-            name="email"
-            placeholder="Email Address"
-            value={formData.email}
-            onChange={handleInputChange}
-            required
-          />
-
-          <Input
-            type="password"
-            name="password"
-            placeholder="Password"
-            value={formData.password}
-            onChange={handleInputChange}
-            required
-          />
-
-          {mode === "signup" && (
+        {mode === "signup" ? (
+          <>
+            <div className="grid grid-cols-2 gap-4">
+              <Input
+                type="text"
+                name="firstName"
+                placeholder="First Name"
+                value={formData.firstName}
+                onChange={handleInputChange}
+                required
+              />
+              <Input
+                type="text"
+                name="lastName"
+                placeholder="Last Name"
+                value={formData.lastName}
+                onChange={handleInputChange}
+                required
+              />
+            </div>
             <Input
               type="password"
               name="confirmPassword"
@@ -101,20 +79,15 @@ const AuthSidebar: React.FC<AuthSidebarProps> = ({ isOpen, onClose }) => {
               onChange={handleInputChange}
               required
             />
-          )}
+          </>
+        ) : (
+          <LoginForm />
+        )}
 
-          <Button type="submit" variant="brand" className="w-full">
+        {/* <Button type="submit" variant="brand" className="w-full">
             {mode === "login" ? "Sign In" : "Create Account"}
           </Button>
-        </form>
-
-        {mode === "login" && (
-          <div className="mt-4">
-            <Button variant="ghost" className="w-full text-sm">
-              Forgot Password?
-            </Button>
-          </div>
-        )}
+         */}
 
         <div className="mt-6 pt-6 border-t border-gray-200">
           <p className="text-center text-sm text-gray-600">

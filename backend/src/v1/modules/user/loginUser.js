@@ -1,6 +1,5 @@
 import User from './User.model.js';
 import bcrypt from 'bcryptjs';
-import jwt from 'jsonwebtoken';
 import generateToken from '../../utils/generateToken.js';
 
 const loginUser = async (req, res, next) => {
@@ -32,7 +31,18 @@ const loginUser = async (req, res, next) => {
     // Generate JWT token
     const token = await generateToken(user.email, user._id);
 
-    res.status(200).json({ message: 'Login successful', token });
+    const userObject = user.toObject();
+
+    delete userObject.password;
+    delete userObject.otp;
+    delete userObject.__v;
+    delete userObject.otpExpires;
+
+    res.status(200).json({
+      message: 'Login successful',
+      token,
+      user: userObject,
+    });
   } catch (error) {
     console.error('Login error:', error);
     next(error);
