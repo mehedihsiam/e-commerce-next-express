@@ -16,7 +16,7 @@ type TResData = {
 };
 
 const apiSignup = async (data: TReqData) => {
-  const instance = axiosInstance(true);
+  const instance = axiosInstance(false);
 
   try {
     const response = await instance.post(API_ROUTES.REGISTER, data);

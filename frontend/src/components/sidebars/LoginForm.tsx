@@ -6,14 +6,23 @@ import Spacer from "../ui/Spacer";
 import * as Yup from "yup";
 import loginUser from "@/utils/api/apiLogin";
 import { useAuthStore } from "@/store/authStore";
+import showToast from "@/utils/toast";
+import { TAuthUIMode } from "@/types/authUiMode";
 
-export default function LoginForm() {
+type TProps = {
+  onClose: () => void;
+  changeMode: (mode: TAuthUIMode) => void;
+  defaultEmail?: string;
+};
+
+export default function LoginForm(props: TProps) {
+  const { onClose, changeMode, defaultEmail } = props;
   const [loading, setLoading] = React.useState(false);
-  const { user, login } = useAuthStore((state) => state);
+  const { login } = useAuthStore((state) => state);
 
   const formik = useFormik({
     initialValues: {
-      email: "",
+      email: defaultEmail || "",
       password: "",
     },
     validationSchema: Yup.object({
@@ -24,13 +33,22 @@ export default function LoginForm() {
       setLoading(true);
 
       // Call your login API here
-      const response = await loginUser(values);
-      if (response) {
+      try {
+        const response = await loginUser(values);
+
         // Handle successful login
         login(response.user, response.token);
+        showToast.success("Successfully logged in!", {
+          description: "Welcome back!",
+        });
+        onClose();
+      } catch (error) {
+        showToast.error("Error logging in", {
+          description: "Please check your credentials and try again.",
+        });
+      } finally {
+        setLoading(false);
       }
-
-      setLoading(false);
     },
   });
 
@@ -41,8 +59,6 @@ export default function LoginForm() {
 
   return (
     <form onSubmit={handleSubmit}>
-      <p>Name: {user?.name}</p>
-
       <Input
         type="email"
         name="email"
@@ -64,9 +80,16 @@ export default function LoginForm() {
         required
       />
       <Spacer height="16px" />
-      <Button type="button" variant="ghost" className="w-full text-sm">
-        Forgot Password?
-      </Button>
+      <div className="flex justify-center">
+        <Button
+          type="button"
+          variant="ghost"
+          className="text-sm hover:bg-transparent hover:text-brand"
+          onClick={() => changeMode("forgot-password")}
+        >
+          Forgot Password?
+        </Button>
+      </div>
       <Spacer height="16px" />
 
       <Button type="submit" className="w-full" disabled={loading}>

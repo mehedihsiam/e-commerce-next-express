@@ -1,24 +1,21 @@
 import API_ROUTES from "@/constants/API_ROUTES";
 import axiosInstance from "./base/axiosInstance";
 import Cookies from "js-cookie";
-import { IUser } from "@/types/auth";
 
 type TReqData = {
   email: string;
-  password: string;
+  otp: string;
 };
 
 type TResData = {
-  user: IUser;
-  token: string;
   message: string;
 };
 
-const loginUser = async (data: TReqData) => {
+const apiVerifyOtp = async (data: TReqData) => {
   const instance = axiosInstance(false);
 
   try {
-    const response = await instance.post(API_ROUTES.LOGIN, data);
+    const response = await instance.post(API_ROUTES.VERIFY_OTP, data);
     Cookies.set("token", response.data.token, {
       expires: 1,
       secure: true,
@@ -26,9 +23,9 @@ const loginUser = async (data: TReqData) => {
     });
     return response.data as TResData;
   } catch (error) {
-    console.error("Error logging in:", error);
+    console.error("Error verifying OTP:", error);
     throw error;
   }
 };
 
-export default loginUser;
+export default apiVerifyOtp;

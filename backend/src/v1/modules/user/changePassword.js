@@ -4,7 +4,6 @@ import { z } from 'zod';
 import User from './User.model.js';
 
 const changePasswordSchema = z.object({
-  currentPassword: z.string(),
   newPassword: z
     .string()
     .min(8, 'New password must be at least 8 characters')
@@ -19,16 +18,10 @@ const changePassword = async (req, res, next) => {
   try {
     // Validate request body
     const validatedData = changePasswordSchema.parse(req.body);
-    const { currentPassword, newPassword } = validatedData;
+    const { newPassword } = validatedData;
 
     // Get the user from the request (assuming user is set by verifyToken middleware)
     const user = req.user;
-
-    // Check if current password matches
-    const isMatch = await bcrypt.compare(currentPassword, user.password);
-    if (!isMatch) {
-      return res.status(400).json({ message: 'Current password is incorrect' });
-    }
 
     // Hash the new password
     const hashedNewPassword = await bcrypt.hash(newPassword, 8);

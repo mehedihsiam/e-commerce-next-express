@@ -6,6 +6,7 @@ import jwt from 'jsonwebtoken';
 import sendEmail from '../../utils/sendEmail.js';
 import welcomingUserEmail from '../../emails/welcomingUserEmail.js';
 import generateToken from '../../utils/generateToken.js';
+import { formatUserForResponsePublic } from '../../utils/formatUserForResponse.js';
 
 // Validation schema
 const registerSchema = z.object({
@@ -49,6 +50,8 @@ const registerUserSelf = async (req, res, next) => {
 
     const token = await generateToken(email, newUser._id);
 
+    const userObject = newUser.toObject();
+
     await sendEmail({
       to: email,
       subject: 'Welcome to E-Commerce',
@@ -58,7 +61,12 @@ const registerUserSelf = async (req, res, next) => {
         userEmail: email,
       }),
     });
-    res.status(201).json({ message: 'User registered successfully', token });
+
+    res.status(201).json({
+      message: 'User registered successfully',
+      token,
+      user: formatUserForResponsePublic(userObject),
+    });
   } catch (error) {
     // Handle Zod validation errors
     const zodErrors = formatZodError(error);

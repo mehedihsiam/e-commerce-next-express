@@ -1,6 +1,7 @@
 import User from './User.model.js';
 import bcrypt from 'bcryptjs';
 import generateToken from '../../utils/generateToken.js';
+import { formatUserForResponsePublic } from '../../utils/formatUserForResponse.js';
 
 const loginUser = async (req, res, next) => {
   try {
@@ -33,15 +34,10 @@ const loginUser = async (req, res, next) => {
 
     const userObject = user.toObject();
 
-    delete userObject.password;
-    delete userObject.otp;
-    delete userObject.__v;
-    delete userObject.otpExpires;
-
     res.status(200).json({
       message: 'Login successful',
       token,
-      user: userObject,
+      user: formatUserForResponsePublic(userObject),
     });
   } catch (error) {
     console.error('Login error:', error);

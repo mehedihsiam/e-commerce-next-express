@@ -5,3 +5,7 @@ export { default as Badge } from "./Badge";
 export { default as Input } from "./Input";
 export { default as Sidebar } from "./Sidebar";
 export { default as StarRating } from "./StarRating";
+
+// Form Components
+export { default as OtpForm } from "../sidebars/OtpForm";
+export { default as OtpInput } from "./OtpInput";

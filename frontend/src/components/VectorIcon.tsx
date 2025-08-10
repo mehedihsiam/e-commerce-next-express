@@ -1,6 +1,7 @@
 import { IoCartOutline, IoClose } from "react-icons/io5";
 import { FaRegEye, FaRegEyeSlash, FaRegHeart, FaRegUser } from "react-icons/fa";
 import { IoIosSearch } from "react-icons/io";
+import { MdOutlinePassword } from "react-icons/md";
 
 export type TIconName =
   | "search"
@@ -9,7 +10,8 @@ export type TIconName =
   | "user"
   | "close"
   | "eye"
-  | "eye-off";
+  | "eye-off"
+  | "password";
 
 type TProps = {
   name: TIconName;
@@ -32,6 +34,8 @@ export default function VectorIcon({ name, className }: TProps) {
       return <FaRegEye className={className} />;
     case "eye-off":
       return <FaRegEyeSlash className={className} />;
+    case "password":
+      return <MdOutlinePassword className={className} />;
     default:
       break;
   }

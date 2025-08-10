@@ -4,8 +4,14 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import Spacer from "../ui/Spacer";
 import apiSignup from "@/utils/api/apiSignup";
+import showToast from "@/utils/toast";
 
-export default function SignUpForm() {
+type TProps = {
+  onClose: () => void;
+};
+
+export default function SignUpForm(props: TProps) {
+  const { onClose } = props;
   const [loading, setLoading] = React.useState(false);
   const formik = useFormik({
     initialValues: {
@@ -35,9 +41,15 @@ export default function SignUpForm() {
           password: values.password,
           name: `${values.firstName} ${values.lastName}`,
         });
+        showToast.success("Successfully signed up!", {
+          description: "Welcome to our platform.",
+        });
+        onClose();
         // Handle successful signup (e.g., show a success message, redirect, etc.)
       } catch (error) {
-        console.error("Error signing up:", error);
+        showToast.error("Error signing up", {
+          description: "Please try again later.",
+        });
         // Handle error (e.g., show an error message)
       } finally {
         setLoading(false);
