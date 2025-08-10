@@ -6,6 +6,7 @@ import { IUser } from "@/types/auth";
 type TReqData = {
   email: string;
   password: string;
+  name: string;
 };
 
 type TResData = {
@@ -14,15 +15,16 @@ type TResData = {
   message: string;
 };
 
-const loginUser = async (data: TReqData) => {
+const apiSignup = async (data: TReqData) => {
   const instance = axiosInstance(true);
 
   try {
-    const response = await instance.post(API_ROUTES.LOGIN, data);
+    const response = await instance.post(API_ROUTES.REGISTER, data);
     Cookies.set("token", response.data.token, {
       expires: 1,
       secure: true,
       sameSite: "strict",
+      httpOnly: true,
     });
     return response.data as TResData;
   } catch (error) {
@@ -31,4 +33,4 @@ const loginUser = async (data: TReqData) => {
   }
 };
 
-export default loginUser;
+export default apiSignup;

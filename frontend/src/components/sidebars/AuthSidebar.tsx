@@ -4,6 +4,7 @@ import Sidebar from "../ui/Sidebar";
 import Button from "../ui/Button";
 import Input from "../ui/Input";
 import LoginForm from "./LoginForm";
+import SignUpForm from "./SignUpForm";
 
 interface AuthSidebarProps {
   isOpen: boolean;
@@ -51,38 +52,7 @@ const AuthSidebar: React.FC<AuthSidebarProps> = ({ isOpen, onClose }) => {
       title={mode === "login" ? "Sign In" : "Create Account"}
     >
       <div className="p-6">
-        {mode === "signup" ? (
-          <>
-            <div className="grid grid-cols-2 gap-4">
-              <Input
-                type="text"
-                name="firstName"
-                placeholder="First Name"
-                value={formData.firstName}
-                onChange={handleInputChange}
-                required
-              />
-              <Input
-                type="text"
-                name="lastName"
-                placeholder="Last Name"
-                value={formData.lastName}
-                onChange={handleInputChange}
-                required
-              />
-            </div>
-            <Input
-              type="password"
-              name="confirmPassword"
-              placeholder="Confirm Password"
-              value={formData.confirmPassword}
-              onChange={handleInputChange}
-              required
-            />
-          </>
-        ) : (
-          <LoginForm />
-        )}
+        {mode === "signup" ? <SignUpForm /> : <LoginForm />}
 
         {/* <Button type="submit" variant="brand" className="w-full">
             {mode === "login" ? "Sign In" : "Create Account"}

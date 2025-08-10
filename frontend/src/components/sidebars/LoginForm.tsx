@@ -5,9 +5,11 @@ import { useFormik } from "formik";
 import Spacer from "../ui/Spacer";
 import * as Yup from "yup";
 import loginUser from "@/utils/api/apiLogin";
+import { useAuthStore } from "@/store/authStore";
 
 export default function LoginForm() {
   const [loading, setLoading] = React.useState(false);
+  const { user, login } = useAuthStore((state) => state);
 
   const formik = useFormik({
     initialValues: {
@@ -25,7 +27,7 @@ export default function LoginForm() {
       const response = await loginUser(values);
       if (response) {
         // Handle successful login
-        console.log(response);
+        login(response.user, response.token);
       }
 
       setLoading(false);
@@ -39,6 +41,8 @@ export default function LoginForm() {
 
   return (
     <form onSubmit={handleSubmit}>
+      <p>Name: {user?.name}</p>
+
       <Input
         type="email"
         name="email"
@@ -65,7 +69,7 @@ export default function LoginForm() {
       </Button>
       <Spacer height="16px" />
 
-      <Button type="submit" className="w-full">
+      <Button type="submit" className="w-full" disabled={loading}>
         {loading ? "Signing In..." : "Sign In"}
       </Button>
     </form>

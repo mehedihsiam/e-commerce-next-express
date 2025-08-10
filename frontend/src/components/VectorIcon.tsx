@@ -1,8 +1,15 @@
 import { IoCartOutline, IoClose } from "react-icons/io5";
-import { FaRegHeart, FaRegUser } from "react-icons/fa";
+import { FaRegEye, FaRegEyeSlash, FaRegHeart, FaRegUser } from "react-icons/fa";
 import { IoIosSearch } from "react-icons/io";
 
-export type TIconName = "search" | "heart" | "cart" | "user" | "close";
+export type TIconName =
+  | "search"
+  | "heart"
+  | "cart"
+  | "user"
+  | "close"
+  | "eye"
+  | "eye-off";
 
 type TProps = {
   name: TIconName;
@@ -21,6 +28,10 @@ export default function VectorIcon({ name, className }: TProps) {
       return <FaRegUser className={className} />;
     case "close":
       return <IoClose className={className} />;
+    case "eye":
+      return <FaRegEye className={className} />;
+    case "eye-off":
+      return <FaRegEyeSlash className={className} />;
     default:
       break;
   }
